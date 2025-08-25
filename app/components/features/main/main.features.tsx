@@ -1,0 +1,101 @@
+import { Link } from '@remix-run/react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { ManualCarousel } from '~/components/common/carousel'
+import { Button } from '~/components/ui/button'
+import { Company, MovieResult } from '~/types'
+
+export function MovieRow({
+  title,
+  items,
+}: {
+  title: string
+  items: MovieResult[]
+}) {
+  return (
+    <section className='px-6 py-8'>
+      <h2 className='mb-10 text-2xl font-semibold'>{title}</h2>
+      <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+        {items?.map(movie => (
+          <Link
+            key={movie.id}
+            to={`/movie/${movie.id}`}
+            className='mb-5 flex-shrink-0'
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              alt={movie.title}
+              className='hover:scale-102 rounded-lg transition'
+            />
+            <p className='mt-3 text-sm font-semibold'>{movie.title}</p>
+            <p className='text-sm text-gray-400'>
+              ⭐ {movie.vote_average.toFixed(1)}
+            </p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export function CompanyRow({ company }: { company: Company | null }) {
+  if (!company) return null
+
+  return (
+    <Link className='mb-2 flex items-center gap-4' to={`/studio/${company.id}`}>
+      {company.logo_path && (
+        <img
+          src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+          alt={company.name}
+          className='h-10 object-contain'
+        />
+      )}
+      <h3 className='text-xl font-bold'>{company.name}</h3>
+    </Link>
+  )
+}
+
+export function MainHero({ hero }: { hero: MovieResult[] }) {
+  return (
+    <ManualCarousel
+      items={hero}
+      maxItems={4}
+      renderItem={active => (
+        <>
+          {/* Blurred background */}
+          <img
+            src={`https://image.tmdb.org/t/p/w780${active.backdrop_path}`}
+            alt={active.title}
+            className='absolute inset-0 h-full w-full scale-110 object-cover blur-2xl'
+          />
+
+          {/* Contained main image */}
+          <img
+            src={`https://image.tmdb.org/t/p/w1280${active.backdrop_path}`}
+            alt={active.title}
+            className='absolute inset-0 h-full w-full object-contain'
+          />
+
+          {/* Dark overlay */}
+          <div className='absolute inset-0 bg-black/60' />
+
+          {/* Content */}
+          <div className='absolute bottom-12 left-12 max-w-xl'>
+            <h1 className='mb-4 text-4xl font-bold text-white drop-shadow-lg'>
+              {active.title}
+            </h1>
+            <p className='mb-4 line-clamp-3 text-sm text-gray-200'>
+              {active.overview}
+            </p>
+            <Link
+              to={`/movie/${active.id}`}
+              className='inline-block rounded-lg bg-red-600 px-4 py-2 font-semibold text-white shadow-md transition hover:bg-red-700'
+            >
+              View Details
+            </Link>
+          </div>
+        </>
+      )}
+    />
+  )
+}
