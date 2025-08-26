@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get('Cookie'))
   if (session.get('session_id') || session.get('guest_session_id')) {
-    return redirect('/main')
+    return redirect('/home')
   }
   return {}
 }

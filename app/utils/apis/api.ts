@@ -124,6 +124,19 @@ export async function getPopular(page = 1): Promise<MovieResponse | null> {
   }
 }
 
+export async function getPopularTv(page = 1): Promise<MovieResponse | null> {
+  try {
+    const res = await fetch(
+      `${TMDB_BASE}/tv/popular?language=en-US&page=${page}`,
+      options,
+    )
+    return await handleResponse(res)
+  } catch (error) {
+    console.error('Failed to fetch popular tv:', error)
+    return null
+  }
+}
+
 export async function getTopRated(page = 1): Promise<MovieResponse | null> {
   try {
     const res = await fetch(
@@ -205,3 +218,15 @@ export const getSimilarMovies = (id: string): Promise<SimilarMovies | null> =>
   fetchTMDB(`/movie/${id}/similar`)
 export const getMovieReviews = (id: string): Promise<MovieReviews | null> =>
   fetchTMDB(`/movie/${id}/similar`)
+
+export const getTvDetails = (
+  id: string,
+): Promise<IndividualMovieDetails | null> => fetchTMDB(`/tv/${id}`)
+export const getTvCredits = (id: string): Promise<MovieCredits | null> =>
+  fetchTMDB(`/tv/${id}/credits`)
+export const getTvVideos = (id: string): Promise<MovieTrailers | null> =>
+  fetchTMDB(`/tv/${id}/videos`)
+export const getSimilarTvs = (id: string): Promise<SimilarMovies | null> =>
+  fetchTMDB(`/tv/${id}/similar`)
+export const getTvReviews = (id: string): Promise<MovieReviews | null> =>
+  fetchTMDB(`/tv/${id}/similar`)

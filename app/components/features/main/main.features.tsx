@@ -1,25 +1,33 @@
 import { Link } from '@remix-run/react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
 import { ManualCarousel } from '~/components/common/carousel'
-import { Button } from '~/components/ui/button'
+import { Card, CardContent } from '~/components/ui/card'
 import { Company, MovieResult } from '~/types'
 
 export function MovieRow({
   title,
   items,
+  baseUrl = '/home/movies',
 }: {
   title: string
   items: MovieResult[]
+  baseUrl?: string
 }) {
   return (
-    <section className='px-6 py-8'>
-      <h2 className='mb-10 text-2xl font-semibold'>{title}</h2>
+    <section className='space-y-5 px-6'>
+      <Link to={baseUrl} className='group relative inline-block text-white'>
+        <span className='text-2xl font-semibold transition-transform duration-300 ease-out hover:text-cyan-400 group-hover:scale-110'>
+          {title}
+        </span>
+
+        {/* underline */}
+        <span className='pointer-events-none absolute -bottom-1 left-0 block h-0.5 w-0 bg-cyan-400 transition-[width] duration-300 ease-out group-hover:w-full' />
+      </Link>
+
       <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
         {items?.map(movie => (
           <Link
             key={movie.id}
-            to={`/movie/${movie.id}`}
+            to={`/home/movie/${movie.id}`}
             className='mb-5 flex-shrink-0'
           >
             <img
@@ -42,15 +50,25 @@ export function CompanyRow({ company }: { company: Company | null }) {
   if (!company) return null
 
   return (
-    <Link className='mb-2 flex items-center gap-4' to={`/studio/${company.id}`}>
-      {company.logo_path && (
-        <img
-          src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
-          alt={company.name}
-          className='h-10 object-contain'
-        />
-      )}
-      <h3 className='text-xl font-bold'>{company.name}</h3>
+    <Link to={`/home/studio/${company.id}`} className='group'>
+      <Card className='flex flex-col items-center justify-center rounded-2xl border border-gray-600 bg-white/5 p-4 shadow-md transition hover:scale-105 hover:shadow-lg'>
+        <CardContent className='flex flex-col items-center gap-4 p-2'>
+          {company.logo_path ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+              alt={company.name}
+              className='h-12 w-auto object-contain transition group-hover:opacity-90'
+            />
+          ) : (
+            <div className='flex h-12 w-full items-center justify-center rounded bg-gray-200 text-sm text-gray-600'>
+              No Logo
+            </div>
+          )}
+          <h3 className='text-center text-lg font-semibold text-white group-hover:text-red-400'>
+            {company.name}
+          </h3>
+        </CardContent>
+      </Card>
     </Link>
   )
 }
@@ -88,7 +106,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
               {active.overview}
             </p>
             <Link
-              to={`/movie/${active.id}`}
+              to={`/home/movie/${active.id}`}
               className='inline-block rounded-lg bg-red-600 px-4 py-2 font-semibold text-white shadow-md transition hover:bg-red-700'
             >
               View Details

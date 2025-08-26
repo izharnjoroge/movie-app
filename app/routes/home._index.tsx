@@ -1,6 +1,6 @@
 // app/routes/main.tsx
 import { LoaderFunctionArgs, redirect } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import Slider from '~/components/common/slider'
 import {
   CompanyRow,
@@ -10,12 +10,13 @@ import {
 import { Company } from '~/types'
 import {
   getCompanyDetails,
-  getCompanyMovies,
   getNowPlaying,
   getPopular,
+  getPopularTv,
   getTopRated,
   getTrending,
 } from '~/utils/apis/api'
+import { STUDIOS } from '~/utils/constants/studios'
 import { getSession } from '~/utils/sessions/session.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -25,17 +26,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (!sessionId && !guestId) return redirect('/')
 
-  const [trending, nowPlaying, popular, topRated] = await Promise.all([
-    getTrending('movie', 'week'),
-    getNowPlaying(),
-    getPopular(),
-    getTopRated(),
-  ])
+  const [trending, nowPlaying, popular, topRated, topRatedTv] =
+    await Promise.all([
+      getTrending('movie', 'week'),
+      getNowPlaying(),
+      getPopular(),
+      getTopRated(),
+      getPopularTv(),
+    ])
 
-  const companiesToFetch = [3, 420, 1, 213]
   const companies: Company[] = await Promise.all(
-    companiesToFetch.map(async id => {
-      const company = await getCompanyDetails(id)
+    STUDIOS.map(async id => {
+      const company = await getCompanyDetails(Number(id.id))
       return company as Company
     }),
   )
@@ -45,47 +47,47 @@ export async function loader({ request }: LoaderFunctionArgs) {
     justReleased: nowPlaying?.results ?? [],
     popular: popular?.results ?? [],
     topRated: topRated?.results ?? [],
+    topRatedTv: topRatedTv?.results ?? [],
     companies,
   }
 }
 
 export default function MainPage() {
-  const { hero, justReleased, popular, topRated, companies } =
+  const { hero, justReleased, popular, topRated, companies, topRatedTv } =
     useLoaderData<typeof loader>()
 
   return (
     <div className='min-h-screen text-white'>
       {/* Hero Banner */}
-
       <MainHero hero={hero} />
 
-      {/* Just Released */}
-      <div className='mx-auto max-w-[1200px] space-y-6'>
-        {/* Companies Section */}
-        <section className='px-6 py-6'>
-          <h2 className='mb-10 text-2xl font-semibold'>Studios</h2>
-          <div className='w-full'>
-            <div className='hidden md:block'>
-              <Slider
-                direction='horizontal'
-                className='w-full'
-                duration={500}
-                gap={100}
-                children={companies.map(company => (
-                  <CompanyRow key={company.id} company={company} />
-                ))}
-                reverse={false}
-                durationOnHover={300}
-              />
-            </div>
-            <div className='flex flex-col gap-4 md:hidden'>
-              {companies.map(company => (
+      {/* Companies Section */}
+      <section className='px-6 py-6'>
+        <h2 className='mb-10 text-2xl font-semibold'>Studios</h2>
+        <div className='w-full'>
+          <div className='hidden md:block'>
+            <Slider
+              direction='horizontal'
+              className='w-full'
+              duration={500}
+              gap={100}
+              children={companies.map(company => (
                 <CompanyRow key={company.id} company={company} />
               ))}
-            </div>
+              reverse={false}
+              durationOnHover={300}
+            />
           </div>
-        </section>
+          <div className='flex flex-col gap-4 md:hidden'>
+            {companies.map(company => (
+              <CompanyRow key={company.id} company={company} />
+            ))}
+          </div>
+        </div>
+      </section>
 
+      <div className='mx-auto max-w-[1200px] space-y-6'>
+        {/* Just Released */}
         <MovieRow title='Just Released' items={justReleased} />
 
         {/* Popular */}
@@ -93,6 +95,13 @@ export default function MainPage() {
 
         {/* Top Rated */}
         <MovieRow title='Top Rated' items={topRated} />
+
+        {/* Top Rated Tv */}
+        <MovieRow
+          title='Top Rated Tv-Series'
+          items={topRated}
+          baseUrl='/home/tv'
+        />
       </div>
     </div>
   )
