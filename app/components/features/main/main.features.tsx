@@ -1,5 +1,6 @@
 import { Link } from '@remix-run/react'
 import { ManualCarousel } from '~/components/common/carousel'
+import Slider from '~/components/common/slider'
 import { Card, CardContent } from '~/components/ui/card'
 import { Company, MovieResult } from '~/types'
 
@@ -77,7 +78,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
   return (
     <ManualCarousel
       items={hero}
-      maxItems={4}
+      maxItems={6}
       renderItem={active => (
         <>
           {/* Blurred background */}
@@ -115,5 +116,33 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
         </>
       )}
     />
+  )
+}
+
+export function StudioSliderComponent({ companies }: { companies: Company[] }) {
+  return (
+    <section className='px-6 py-6'>
+      <h2 className='mb-10 text-2xl font-semibold'>Studios</h2>
+      <div className='w-full'>
+        <div className='hidden md:block'>
+          <Slider
+            direction='horizontal'
+            className='w-full'
+            duration={500}
+            gap={100}
+            children={companies.map(company => (
+              <CompanyRow key={company.id} company={company} />
+            ))}
+            reverse={false}
+            durationOnHover={300}
+          />
+        </div>
+        <div className='flex flex-col gap-4 md:hidden'>
+          {companies.map(company => (
+            <CompanyRow key={company.id} company={company} />
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

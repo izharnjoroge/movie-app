@@ -6,6 +6,7 @@ import {
   CompanyRow,
   MainHero,
   MovieRow,
+  StudioSliderComponent,
 } from '~/components/features/main/main.features'
 import { Company } from '~/types'
 import {
@@ -17,15 +18,8 @@ import {
   getTrending,
 } from '~/utils/apis/api'
 import { STUDIOS } from '~/utils/constants/studios'
-import { getSession } from '~/utils/sessions/session.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await getSession(request.headers.get('Cookie'))
-  const sessionId = session.get('session_id')
-  const guestId = session.get('guest_session_id')
-
-  if (!sessionId && !guestId) return redirect('/')
-
   const [trending, nowPlaying, popular, topRated, topRatedTv] =
     await Promise.all([
       getTrending('movie', 'week'),
@@ -57,36 +51,14 @@ export default function MainPage() {
     useLoaderData<typeof loader>()
 
   return (
-    <div className='min-h-screen text-white'>
+    <div className='min-h-screen space-y-6 text-white'>
       {/* Hero Banner */}
       <MainHero hero={hero} />
 
       {/* Companies Section */}
-      <section className='px-6 py-6'>
-        <h2 className='mb-10 text-2xl font-semibold'>Studios</h2>
-        <div className='w-full'>
-          <div className='hidden md:block'>
-            <Slider
-              direction='horizontal'
-              className='w-full'
-              duration={500}
-              gap={100}
-              children={companies.map(company => (
-                <CompanyRow key={company.id} company={company} />
-              ))}
-              reverse={false}
-              durationOnHover={300}
-            />
-          </div>
-          <div className='flex flex-col gap-4 md:hidden'>
-            {companies.map(company => (
-              <CompanyRow key={company.id} company={company} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <StudioSliderComponent companies={companies} />
 
-      <div className='mx-auto max-w-[1200px] space-y-6'>
+      <div className='mx-auto max-w-[1200px] space-y-6 md:space-y-8'>
         {/* Just Released */}
         <MovieRow title='Just Released' items={justReleased} />
 
@@ -99,7 +71,7 @@ export default function MainPage() {
         {/* Top Rated Tv */}
         <MovieRow
           title='Top Rated Tv-Series'
-          items={topRated}
+          items={topRatedTv}
           baseUrl='/home/tv'
         />
       </div>

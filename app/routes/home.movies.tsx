@@ -1,8 +1,9 @@
 // app/routes/movies.tsx
 import { type LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData, Link } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import { MovieCard } from '~/components/common/movies.card'
 import { PaginationComponent } from '~/components/common/pagination'
+import { SectionWrapper } from '~/components/common/section.wrapper'
 import { getPopular } from '~/utils/apis/api'
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -21,7 +22,7 @@ export default function MoviesPage() {
   const { movies, page, totalPages } = useLoaderData<typeof loader>()
 
   return (
-    <div className='mx-auto min-h-screen max-w-[1200px] text-white'>
+    <SectionWrapper>
       <h1 className='mb-6 text-3xl font-bold'>🎥 Movies Directory</h1>
 
       {/* Movies Grid */}
@@ -33,6 +34,6 @@ export default function MoviesPage() {
         totalPages={totalPages}
         basePath={`/movies`}
       />
-    </div>
+    </SectionWrapper>
   )
 }

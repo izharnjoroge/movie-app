@@ -15,8 +15,9 @@ import {
 import { createRequestToken } from '~/utils/apis/api'
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { success, request_token } = await createRequestToken()
-  if (!success)
+  const result: any = await createRequestToken()
+  const request_token = result.request_token
+  if (!request_token)
     throw new Response('Failed to get request token', { status: 400 })
 
   return { request_token, appUrl: process.env.APP_URL }

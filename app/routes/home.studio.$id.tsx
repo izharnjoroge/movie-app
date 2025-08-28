@@ -4,6 +4,7 @@ import { LoaderFunctionArgs } from '@remix-run/node'
 import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
 import { MovieCard } from '~/components/common/movies.card'
 import { PaginationComponent } from '~/components/common/pagination'
+import { SectionWrapper } from '~/components/common/section.wrapper'
 import { Pagination } from '~/components/ui/pagination'
 import { getCompanyDetails, getCompanyDiscoveredMovies } from '~/utils/apis/api'
 
@@ -34,7 +35,7 @@ export default function StudioPage() {
     useLoaderData<typeof loader>()
 
   return (
-    <div className='mx-auto min-h-screen max-w-[1200px] text-white'>
+    <SectionWrapper>
       <h1 className='mb-8 text-3xl font-bold'>
         🎥 Movies From {company?.name}
       </h1>
@@ -48,6 +49,6 @@ export default function StudioPage() {
         totalPages={totalPages}
         basePath={`/studio/${companyId}`}
       />
-    </div>
+    </SectionWrapper>
   )
 }

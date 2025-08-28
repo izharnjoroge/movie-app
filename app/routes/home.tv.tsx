@@ -3,6 +3,7 @@ import { type LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData, Link } from '@remix-run/react'
 import { MovieCard } from '~/components/common/movies.card'
 import { PaginationComponent } from '~/components/common/pagination'
+import { SectionWrapper } from '~/components/common/section.wrapper'
 import { getPopularTv } from '~/utils/apis/api'
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -21,7 +22,7 @@ export default function TVPage() {
   const { shows, page, totalPages } = useLoaderData<typeof loader>()
 
   return (
-    <div className='mx-auto min-h-screen max-w-[1200px] text-white'>
+    <SectionWrapper>
       <h1 className='mb-6 text-3xl font-bold'>📺 TV Series Directory</h1>
 
       <MovieCard movies={shows ?? []} />
@@ -32,6 +33,6 @@ export default function TVPage() {
         totalPages={totalPages}
         basePath={`/tv`}
       />
-    </div>
+    </SectionWrapper>
   )
 }

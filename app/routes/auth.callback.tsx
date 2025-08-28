@@ -12,9 +12,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (!approvedToken) {
     // fallback → guest session
-    const { guest_session_id } = await createGuestSession()
+    const guest_session_id = await createGuestSession()
     session.set('guest_session_id', guest_session_id)
-    return redirect('/main', {
+    return redirect('/home', {
       headers: { 'Set-Cookie': await commitSession(session) },
     })
   }
