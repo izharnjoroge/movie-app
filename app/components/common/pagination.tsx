@@ -9,11 +9,17 @@ export function PaginationComponent({
   totalPages: number
   basePath: string
 }) {
+  // Helper: build URLs safely
+  const buildUrl = (targetPage: number) => {
+    const hasQuery = basePath.includes('?')
+    return `${basePath}${hasQuery ? '&' : '?'}page=${targetPage}`
+  }
+
   return (
     <div className='mt-10 flex items-center justify-center gap-4'>
       {/* Prev Button */}
       <Link
-        to={page > 1 ? `${basePath}?page=${page - 1}` : '#'}
+        to={page > 1 ? buildUrl(page - 1) : '#'}
         aria-disabled={page === 1}
         className={`rounded-2xl px-4 py-2 text-white shadow-sm transition ${
           page === 1
@@ -26,7 +32,7 @@ export function PaginationComponent({
 
       {/* Next Button */}
       <Link
-        to={page < totalPages ? `${basePath}?page=${page + 1}` : '#'}
+        to={page < totalPages ? buildUrl(page + 1) : '#'}
         aria-disabled={page === totalPages}
         className={`rounded-2xl px-4 py-2 text-white shadow-sm transition ${
           page === totalPages

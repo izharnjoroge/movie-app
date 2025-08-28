@@ -8,6 +8,8 @@ import {
 import type { LinksFunction } from '@remix-run/node'
 
 import './tailwind.css'
+import { RouteLoader } from './components/common/router.loader'
+import { Toaster } from './components/ui/sonner'
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -34,7 +36,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className='bg-white font-sans font-semibold text-gray-200 antialiased'>
         <main className='mx-auto min-h-screen max-w-[1980px] bg-gradient-to-br from-cyan-900 to-black font-sans'>
           {children}
+          <RouteLoader />
         </main>
+        {/* Toast container */}
+        <Toaster richColors closeButton />
         <ScrollRestoration />
         <Scripts />
       </body>

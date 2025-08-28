@@ -42,7 +42,7 @@ export default function AuthLogin() {
       if (event.origin !== appUrl) return
       if (event.data === 'tmdb-auth-success') {
         popup?.close()
-        window.location.href = '/main'
+        window.location.href = '/home'
       }
       if (event.data === 'tmdb-auth-fail') {
         popup?.close()

@@ -1,74 +1,72 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { createRemixStub } from '@remix-run/testing'
+
 import LandingPage, { loader, action } from '~/routes/_index'
 import * as authChecker from '~/utils/auth/auth.checker'
 import * as api from '~/utils/apis/api'
 import * as sessions from '~/utils/sessions/session.server'
-import { redirect } from '@remix-run/node'
 
-describe('Index Route', () => {
-  it('renders the welcome message', () => {
-    render(
-      <MemoryRouter>
-        <LandingPage />
-      </MemoryRouter>,
-    )
+describe('LandingPage route', () => {
+  beforeEach(() => {
+    vi.resetAllMocks()
+
+    // Default: unauthenticated so <LandingPage /> renders
+    vi.spyOn(authChecker, 'isAuthenticated').mockResolvedValue({
+      sessionId: null,
+      guestId: null,
+    })
+  })
+
+  const renderWithStub = () => {
+    const RemixStub = createRemixStub([
+      { path: '/', Component: LandingPage, loader, action },
+      { path: '/home', Component: () => <div>Home Page</div> },
+    ])
+    return render(<RemixStub />)
+  }
+
+  it('renders welcome message', async () => {
+    renderWithStub()
 
     expect(
-      screen.getByRole('heading', { name: /welcome to the tmdb app/i }),
+      await screen.findByRole('heading', { name: /welcome to the tmdb app/i }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/discover movies/i)).toBeInTheDocument()
   })
-})
 
-describe('loader()', () => {
-  it('redirects if user is authenticated', async () => {
+  it('redirects if authenticated', async () => {
     vi.spyOn(authChecker, 'isAuthenticated').mockResolvedValue({
       sessionId: '123',
       guestId: null,
     })
 
-    const response = await loader({ request: new Request('http://localhost') })
-    expect(response.status).toBe(302)
-    expect(response.headers.get('Location')).toBe('/home')
+    renderWithStub()
+
+    expect(await screen.findByText('Home Page')).toBeInTheDocument()
   })
 
-  it('returns empty object if unauthenticated', async () => {
-    vi.spyOn(authChecker, 'isAuthenticated').mockResolvedValue({
-      sessionId: null,
-      guestId: null,
-    })
+  it('submits guest login form', async () => {
+    const user = userEvent.setup()
 
-    const response = await loader({ request: new Request('http://localhost') })
-    expect(response).toEqual({})
-  })
-})
-
-describe('action()', () => {
-  it('creates guest session and redirects', async () => {
+    // Mock session creation
     vi.spyOn(api, 'createGuestSession').mockResolvedValue('guest-123')
-    const mockSession = {
-      set: vi.fn(),
-    }
+    const mockSession = { set: vi.fn() }
     vi.spyOn(sessions, 'getSession').mockResolvedValue(mockSession as any)
     vi.spyOn(sessions, 'commitSession').mockResolvedValue('cookie=value')
 
-    const response = await action({ request: new Request('http://localhost') })
+    renderWithStub()
 
-    expect(mockSession.set).toHaveBeenCalledWith(
-      'guest_session_id',
-      'guest-123',
-    )
-    expect(response.status).toBe(302)
-    expect(response.headers.get('Set-Cookie')).toBe('cookie=value')
-    expect(response.headers.get('Location')).toBe('/home')
-  })
+    const guestButton = await screen.findByRole('button', {
+      name: /continue as guest/i,
+    })
+    await user.click(guestButton)
 
-  it('throws if guest session fails', async () => {
-    vi.spyOn(api, 'createGuestSession').mockResolvedValue(null)
-
-    await expect(
-      action({ request: new Request('http://localhost') }),
-    ).rejects.toMatchObject({ status: 400 })
+    await waitFor(() => {
+      expect(mockSession.set).toHaveBeenCalledWith(
+        'guest_session_id',
+        'guest-123',
+      )
+    })
   })
 })

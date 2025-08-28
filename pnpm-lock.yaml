@@ -35,6 +35,9 @@ importers:
       '@remix-run/serve':
         specifier: ^2.15.3
         version: 2.17.0(typescript@5.9.2)
+      '@remix-run/testing':
+        specifier: ^2.17.0
+        version: 2.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -71,9 +74,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
-      react-router-dom:
-        specifier: ^7.8.2
-        version: 7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-use-measure:
         specifier: ^2.1.7
         version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -96,6 +96,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@testing-library/user-event':
+        specifier: ^14.6.1
+        version: 14.6.1(@testing-library/dom@10.4.1)
       '@types/react':
         specifier: ^18.2.20
         version: 18.3.23
@@ -1314,6 +1317,16 @@ packages:
       typescript:
         optional: true
 
+  '@remix-run/testing@2.17.0':
+    resolution: {integrity: sha512-QsxDtyIAj5Ss4r9D6URucrc5j+u7qJLo0C7+ToGCPAJhviLKEFN7cGoczbuVSZj+eCGvagGOx57Ik/7EQot7+w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0.0
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   '@remix-run/web-blob@3.1.0':
     resolution: {integrity: sha512-owGzFLbqPH9PlKb8KvpNJ0NO74HWE2euAn61eEiyCXX/oteoVzTVSN8mpLgDjaxBf2btj5/nUllSUgpyd6IH6g==}
 
@@ -1455,6 +1468,12 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+
+  '@testing-library/user-event@14.6.1':
+    resolution: {integrity: sha512-vq7fv0rnt+QTXgPxr5Hjc210p6YKq2kmdziLgnsZGgLJ9e6VAShx1pACLuRjd/AS/sr7phAR58OIIpf0LlmQNw==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
 
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
@@ -2082,10 +2101,6 @@ packages:
   cookie@0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
-
-  cookie@1.0.2:
-    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
-    engines: {node: '>=18'}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3964,28 +3979,11 @@ packages:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  react-router-dom@7.8.2:
-    resolution: {integrity: sha512-Z4VM5mKDipal2jQ385H6UBhiiEDlnJPx6jyWsTYoZQdl5TrjxEV2a9yl3Fi60NBJxYzOTGTTHXPi0pdizvTwow==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-
   react-router@6.30.0:
     resolution: {integrity: sha512-D3X8FyH9nBcTSHGdEKurK7r8OYE1kKFn3d/CF+CoxbSHkxU7o37+Uh7eAHRXr6k2tSExXYO++07PeXJtA/dEhQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
-
-  react-router@7.8.2:
-    resolution: {integrity: sha512-7M2fR1JbIZ/jFWqelpvSZx+7vd7UlBTfdZqf6OSdF9g6+sfdqJDAWcak6ervbHph200ePlu+7G8LdoiC3ReyAQ==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
 
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
@@ -6008,6 +6006,18 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
+  '@remix-run/testing@2.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)':
+    dependencies:
+      '@remix-run/node': 2.17.0(typescript@5.9.2)
+      '@remix-run/react': 2.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
+      '@remix-run/router': 1.23.0
+      react: 18.3.1
+      react-router-dom: 6.30.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    optionalDependencies:
+      typescript: 5.9.2
+    transitivePeerDependencies:
+      - react-dom
+
   '@remix-run/web-blob@3.1.0':
     dependencies:
       '@remix-run/web-stream': 1.1.0
@@ -6127,6 +6137,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.23
       '@types/react-dom': 18.3.7(@types/react@18.3.23)
+
+  '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.1)':
+    dependencies:
+      '@testing-library/dom': 10.4.1
 
   '@tybys/wasm-util@0.10.0':
     dependencies:
@@ -6834,8 +6848,6 @@ snapshots:
   cookie@0.7.1: {}
 
   cookie@0.7.2: {}
-
-  cookie@1.0.2: {}
 
   core-util-is@1.0.3: {}
 
@@ -9047,24 +9059,10 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.30.0(react@18.3.1)
 
-  react-router-dom@7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-router: 7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   react-router@6.30.0(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.23.0
       react: 18.3.1
-
-  react-router@7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      cookie: 1.0.2
-      react: 18.3.1
-      set-cookie-parser: 2.7.1
-    optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
 
   react-style-singleton@2.2.3(@types/react@18.3.23)(react@18.3.1):
     dependencies:

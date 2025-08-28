@@ -1,6 +1,6 @@
 // app/routes/auth.callback.tsx
-import { createSession, LoaderFunctionArgs, redirect } from '@remix-run/node'
-import { createGuestSession } from '~/utils/apis/api'
+import { LoaderFunctionArgs, redirect } from '@remix-run/node'
+import { createGuestSession, createSession } from '~/utils/apis/api'
 import { commitSession, getSession } from '~/utils/sessions/session.server'
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -19,23 +19,26 @@ export async function loader({ request }: LoaderFunctionArgs) {
     })
   }
 
-  const session_id = createSession(approvedToken)
+  const { session_id, success } = await createSession(approvedToken)
 
-  session.set('session_id', session_id)
-  message = 'tmdb-auth-success'
+  if (success) {
+    session.set('session_id', session_id)
+    message = 'tmdb-auth-success'
 
-  return new Response(
-    `
+    return new Response(
+      `
       <script>
         window.opener.postMessage("${message}", "${process.env.APP_URL}");
         window.close();
       </script>
     `,
-    {
-      headers: {
-        'Content-Type': 'text/html',
-        'Set-Cookie': await commitSession(session),
+      {
+        headers: {
+          'Content-Type': 'text/html',
+          'Set-Cookie': await commitSession(session),
+        },
       },
-    },
-  )
+    )
+  }
+  redirect('/')
 }

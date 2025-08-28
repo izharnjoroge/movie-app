@@ -72,7 +72,8 @@ export default function MainPage() {
         <MovieRow
           title='Top Rated Tv-Series'
           items={topRatedTv}
-          baseUrl='/home/tv'
+          baseUrl='/home/tvs'
+          childUrl='/home/tv'
         />
       </div>
     </div>
