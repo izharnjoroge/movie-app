@@ -96,9 +96,9 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
       items={hero}
       maxItems={6}
       renderItem={active => (
-        <>
+        <div className='relative h-[80vh] w-full overflow-hidden'>
           {/* Blurred background */}
-          <div className='absolute inset-0 aspect-video'>
+          <div className='absolute inset-0'>
             {active.backdrop_path ? (
               <>
                 <img
@@ -109,7 +109,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
                 <img
                   src={`https://image.tmdb.org/t/p/w1280${active.backdrop_path}`}
                   alt={active.title}
-                  className='absolute inset-0 h-full w-full object-contain'
+                  className='absolute inset-0 h-full w-full object-cover sm:object-contain'
                 />
               </>
             ) : (
@@ -121,11 +121,11 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
           </div>
 
           {/* Content */}
-          <div className='absolute bottom-12 left-12 max-w-xl'>
-            <h1 className='mb-4 text-4xl font-bold text-white drop-shadow-lg'>
+          <div className='absolute bottom-8 left-4 right-4 sm:bottom-12 sm:left-12 sm:max-w-xl'>
+            <h1 className='mb-4 text-2xl font-bold text-white drop-shadow-lg sm:text-4xl'>
               {active.title}
             </h1>
-            <p className='mb-4 line-clamp-3 text-sm text-gray-200'>
+            <p className='mb-4 line-clamp-3 text-sm text-gray-200 sm:text-base'>
               {active.overview}
             </p>
             <Link
@@ -135,7 +135,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
               View Details
             </Link>
           </div>
-        </>
+        </div>
       )}
     />
   )

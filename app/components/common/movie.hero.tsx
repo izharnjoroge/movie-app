@@ -18,7 +18,7 @@ export function MovieHero({
 
   return (
     <div
-      className='relative h-[70vh] bg-cover bg-center md:h-[80vh]'
+      className='relative h-[80vh] bg-cover bg-center'
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${details.backdrop_path})`,
       }}
@@ -66,7 +66,7 @@ export function MovieHero({
                 <Button
                   type='submit'
                   disabled={isSubmitting}
-                  className='rounded bg-pink-600 px-4 py-2 text-sm font-semibold shadow hover:bg-pink-700'
+                  className='rounded-lg bg-pink-600 px-4 py-2 text-sm font-semibold shadow hover:bg-pink-700'
                 >
                   ❤️ Add To Favorites
                 </Button>
@@ -80,9 +80,9 @@ export function MovieHero({
                 <Button
                   type='submit'
                   disabled={isSubmitting}
-                  className='rounded bg-blue-600 px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700'
+                  className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700'
                 >
-                  📺Add To Watchlist
+                  📺 Add To Watchlist
                 </Button>
               </Form>
 
@@ -103,7 +103,7 @@ export function MovieHero({
                 <Button
                   type='submit'
                   disabled={isSubmitting}
-                  className='rounded bg-yellow-500 px-3 py-2 text-sm font-semibold shadow hover:bg-yellow-600'
+                  className='rounded-lg bg-yellow-500 px-3 py-2 text-sm font-semibold shadow hover:bg-yellow-600'
                 >
                   ⭐ Rate Movie
                 </Button>

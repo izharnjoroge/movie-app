@@ -47,7 +47,7 @@ export default function StudioPage() {
       <PaginationComponent
         page={page}
         totalPages={totalPages}
-        basePath={`/studio/${companyId}`}
+        basePath={`/home/studio/${companyId}`}
       />
     </SectionWrapper>
   )

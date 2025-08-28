@@ -59,7 +59,7 @@ export default function AuthLogin() {
 
   return (
     <div className='flex h-screen items-center justify-center bg-inherit'>
-      <Card className='w-[600px] rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
+      <Card className='md:[50%] w-[90%] rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
         <CardHeader>
           <CardTitle>Authorize App</CardTitle>
         </CardHeader>
@@ -70,7 +70,7 @@ export default function AuthLogin() {
             Do you approve?
           </p>
         </CardContent>
-        <CardFooter className='flex justify-between gap-4'>
+        <CardFooter className='flex flex-col justify-between gap-4 md:flex-row'>
           <DestructiveButtons
             onClick={handleDecline}
             type='button'

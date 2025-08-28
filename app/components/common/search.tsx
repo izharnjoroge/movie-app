@@ -1,6 +1,7 @@
 import { Form, useNavigate } from '@remix-run/react'
 import { Button } from '../ui/button'
 import { useRef } from 'react'
+import { SearchIcon, X } from 'lucide-react'
 
 export function SearchForm({
   placeholder = 'Search movies...',
@@ -26,14 +27,14 @@ export function SearchForm({
         type='text'
         name='query'
         placeholder={placeholder}
-        className='flex-1 rounded-lg border border-gray-600 bg-white/10 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none'
+        className='w-[70%] rounded-lg border border-gray-600 bg-white/10 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none md:w-[80%]'
       />
 
       <Button
         type='submit'
         className='rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-700'
       >
-        Search
+        <SearchIcon />
       </Button>
 
       <Button
@@ -41,7 +42,7 @@ export function SearchForm({
         onClick={handleClear}
         className='rounded-lg border-2 border-white/80 px-4 py-2 text-sm font-semibold text-cyan-600 transition'
       >
-        Clear
+        <X />
       </Button>
     </Form>
   )
