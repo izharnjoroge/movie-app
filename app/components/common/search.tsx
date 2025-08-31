@@ -45,7 +45,7 @@ export function SearchForm({
         aria-label='clear'
         className='rounded-lg border-2 border-white/80 px-4 py-2 text-sm font-semibold text-cyan-600 transition'
       >
-        <X />
+        <X color='#ffffff' />
       </Button>
     </Form>
   )
