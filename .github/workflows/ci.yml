@@ -1,4 +1,4 @@
-name: Run Tests before merge
+name: CI
 
 on:
   push:
