@@ -32,7 +32,6 @@ export default defineConfig({
       '~': r('./app'),
       react: r('./node_modules/react'),
       'react-dom': r('./node_modules/react-dom'),
-      'test/*': r('tests/*'),
     },
   },
 })
