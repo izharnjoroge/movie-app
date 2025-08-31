@@ -20,6 +20,10 @@ export default defineConfig({
         'app/components/ui/*',
         'app/lib/*',
         'app/types/*',
+        'app/utils/constants',
+        'app/utils/constants',
+        'app/entry.client.tsx',
+        'app/entry.server.tsx',
       ],
     },
   },
@@ -28,6 +32,7 @@ export default defineConfig({
       '~': r('./app'),
       react: r('./node_modules/react'),
       'react-dom': r('./node_modules/react-dom'),
+      'test/*': r('tests/*'),
     },
   },
 })
