@@ -38,7 +38,12 @@ export default function AuthLogin() {
     )
 
     const handler = (event: MessageEvent) => {
-      if (event.origin !== appUrl) return
+      if (
+        !event.origin.includes('vercel.app') &&
+        !event.origin.includes('localhost')
+      )
+        return
+
       if (event.data === 'tmdb-auth-success') {
         popup?.close()
         window.location.href = '/home'
@@ -58,7 +63,7 @@ export default function AuthLogin() {
 
   return (
     <div className='flex h-screen items-center justify-center bg-inherit'>
-      <Card className='md:[50%] w-[90%] rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
+      <Card className='md:[50%] w-[90%] max-w-2xl rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
         <CardHeader>
           <CardTitle>Authorize App</CardTitle>
         </CardHeader>

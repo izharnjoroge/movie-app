@@ -69,7 +69,7 @@ export function CompanyRow({ company }: { company: Company | null }) {
     <Link to={`/home/studio/${company.id}`} className='group'>
       <Card className='flex flex-col items-center justify-center rounded-2xl border border-gray-600 bg-white/5 p-4 shadow-md transition hover:scale-105 hover:shadow-lg'>
         <CardContent className='flex flex-col items-center gap-4 p-2'>
-          <div className='relative h-12 w-full'>
+          <div className='relative flex h-12 w-full justify-center'>
             {company.logo_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
@@ -82,7 +82,7 @@ export function CompanyRow({ company }: { company: Company | null }) {
               </div>
             )}
           </div>
-          <h3 className='text-center text-lg font-semibold text-white group-hover:text-red-400'>
+          <h3 className='text-center text-lg font-semibold text-white group-hover:text-cyan-600'>
             {company.name}
           </h3>
         </CardContent>
@@ -122,7 +122,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
           </div>
 
           {/* Content */}
-          <div className='absolute bottom-8 left-4 right-4 sm:bottom-12 sm:left-12 sm:max-w-xl'>
+          <div className='absolute bottom-8 left-4 right-4 sm:bottom-[100px] sm:left-[100px] sm:max-w-xl'>
             <h1 className='mb-4 text-2xl font-bold text-white drop-shadow-lg sm:text-4xl'>
               {active.title}
             </h1>

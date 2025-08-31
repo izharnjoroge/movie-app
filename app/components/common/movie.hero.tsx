@@ -25,13 +25,13 @@ export function MovieHero({
       }}
     >
       {/* Overlay */}
-      <div className='absolute inset-0 flex items-end bg-black/60 px-4 py-6 md:p-10'>
+      <div className='absolute inset-0 flex items-end bg-black/70 px-4 py-6 md:p-10'>
         <div className='flex max-w-5xl gap-4 md:items-start md:gap-6'>
           {/* Poster */}
           <img
             src={`https://image.tmdb.org/t/p/w300${details.poster_path}`}
             alt={details.title}
-            className='mx-auto w-32 rounded-xl shadow-lg sm:w-40 md:mx-0 md:w-auto'
+            className='mx-auto w-40 rounded-xl shadow-lg sm:w-48 md:mx-0 md:w-56'
           />
 
           {/* Text content */}
@@ -42,7 +42,7 @@ export function MovieHero({
             <p className='mt-1 text-sm text-gray-300 sm:text-base'>
               {details.release_date} • ⭐ {details.vote_average.toFixed(1)}
             </p>
-            <p className='mt-3 line-clamp-5 text-gray-200 md:line-clamp-none'>
+            <p className='mt-3 line-clamp-3 text-gray-200 md:line-clamp-none'>
               {details.overview}
             </p>
 
@@ -53,12 +53,12 @@ export function MovieHero({
                 rel='noreferrer'
                 className='mt-4 inline-block rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold sm:text-base'
               >
-                ▶ Watch Trailer
+                ▶ Trailer
               </a>
             )}
 
             {/* --- User Actions --- */}
-            <div className='mt-6 flex flex-wrap gap-3 md:mt-16'>
+            <div className='mt-6 flex flex-wrap justify-center gap-3 md:mt-12'>
               {/* Favorite */}
               <Form method='post'>
                 <input type='hidden' name='intent' value='favorite' />
@@ -69,7 +69,7 @@ export function MovieHero({
                   disabled={isSubmitting}
                   className='rounded-lg bg-pink-600 px-4 py-2 text-sm font-semibold shadow hover:bg-pink-700'
                 >
-                  ❤️ Add To Favorites
+                  ❤️ Fav
                 </Button>
               </Form>
 
@@ -83,7 +83,7 @@ export function MovieHero({
                   disabled={isSubmitting}
                   className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700'
                 >
-                  📺 Add To Watchlist
+                  📺 Watch
                 </Button>
               </Form>
 
@@ -106,7 +106,7 @@ export function MovieHero({
                   disabled={isSubmitting}
                   className='rounded-lg bg-yellow-500 px-3 py-2 text-sm font-semibold shadow hover:bg-yellow-600'
                 >
-                  ⭐ Rate Movie
+                  ⭐ Rate
                 </Button>
               </Form>
             </div>

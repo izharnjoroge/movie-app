@@ -153,7 +153,7 @@ describe('MovieHero', () => {
       ),
     )
 
-    const link = screen.getByRole('link', { name: /Watch Trailer/i })
+    const link = screen.getByRole('link', { name: /Trailer/i })
     expect(link).toHaveAttribute(
       'href',
       'https://www.youtube.com/watch?v=mbCDMwmiGng',
@@ -166,15 +166,9 @@ describe('MovieHero', () => {
     )
 
     // Favorites button
-    expect(
-      screen.getByRole('button', { name: /Add To Favorites/i }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: /Add To Watchlist/i }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: /Rate Movie/i }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Fav/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Watch/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Rate/i })).toBeInTheDocument()
 
     // Hidden inputs check
     const hiddenInputs = screen.getAllByDisplayValue('movie')

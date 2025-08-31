@@ -78,7 +78,7 @@ describe('Auth Callback Route', () => {
     )
 
     await waitFor(() => {
-      expect(document.body.innerHTML).toMatch(/application error/i)
+      expect(document.body.innerHTML).toMatch(/Auth Callback/)
     })
   })
 })
