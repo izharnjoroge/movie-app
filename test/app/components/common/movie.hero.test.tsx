@@ -153,7 +153,7 @@ describe('MovieHero', () => {
       ),
     )
 
-    const link = screen.getByRole('link', { name: /Watch Trailer/i })
+    const link = screen.getByRole('link', { name: /Trailer/i })
     expect(link).toHaveAttribute(
       'href',
       'https://www.youtube.com/watch?v=mbCDMwmiGng',
