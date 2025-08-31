@@ -1,3 +1,4 @@
+//app.components.search.tsx
 import { Form, useNavigate } from '@remix-run/react'
 import { Button } from '../ui/button'
 import { useRef } from 'react'
@@ -32,6 +33,7 @@ export function SearchForm({
 
       <Button
         type='submit'
+        aria-label='search'
         className='rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-700'
       >
         <SearchIcon />
@@ -40,6 +42,7 @@ export function SearchForm({
       <Button
         type='button'
         onClick={handleClear}
+        aria-label='clear'
         className='rounded-lg border-2 border-white/80 px-4 py-2 text-sm font-semibold text-cyan-600 transition'
       >
         <X />

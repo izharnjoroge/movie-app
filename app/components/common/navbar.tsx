@@ -1,3 +1,4 @@
+//app.components.common.navbar.tsx
 import { useState } from 'react'
 import { Link, NavLink } from '@remix-run/react'
 import { baseLinks, userLinks } from '~/utils/constants/routes'

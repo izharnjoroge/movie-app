@@ -128,10 +128,10 @@ export interface Crew {
 
 export interface MovieTrailers {
   id: number
-  results: Result[]
+  results: TrailerResult[]
 }
 
-export interface Result {
+export interface TrailerResult {
   iso_639_1: string
   iso_3166_1: string
   name: string

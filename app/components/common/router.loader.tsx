@@ -1,3 +1,4 @@
+//app.components.common.movie.card.tsx
 import { useNavigation } from '@remix-run/react'
 import { Loader2 } from 'lucide-react'
 

@@ -1,4 +1,4 @@
-// app/routes/tv.$id.tsx
+// app/routes/home.tv.$id.tsx
 
 import {
   ActionFunctionArgs,
@@ -8,7 +8,7 @@ import {
 import { useActionData, useLoaderData } from '@remix-run/react'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
-import CastComponent, { SimilarComponent } from '~/components/common/movie.body'
+import { SimilarComponent, CastComponent } from '~/components/common/movie.body'
 import { MovieHero } from '~/components/common/movie.hero'
 import { ActionResponse } from '~/types'
 import {

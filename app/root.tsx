@@ -10,6 +10,8 @@ import type { LinksFunction } from '@remix-run/node'
 import './tailwind.css'
 import { RouteLoader } from './components/common/router.loader'
 import { Toaster } from './components/ui/sonner'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -49,4 +51,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />
+}
+
+// Remix error boundary
+export function ErrorBoundary({ error }: { error: unknown }) {
+  // Normalize error (Remix sometimes passes `unknown`)
+  let message = 'An unexpected error occurred'
+  if (error instanceof Error) {
+    message = error.message
+  } else if (typeof error === 'string') {
+    message = error
+  } else if (error && typeof error === 'object' && 'statusText' in error) {
+    message = (error as any).statusText || message
+  }
+
+  useEffect(() => {
+    toast.error(message, {
+      action: {
+        label: 'Reload',
+        onClick: () => location.reload(),
+      },
+    })
+  }, [message])
+
+  return (
+    <div className='flex min-h-screen flex-col items-center justify-center p-6 text-center text-white'>
+      <h1 className='mb-4 text-2xl font-bold'>
+        {' '}
+        Application Error Something went wrong
+      </h1>
+      <p className='mb-6 text-gray-400'>{message}</p>
+    </div>
+  )
 }

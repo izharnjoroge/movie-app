@@ -1,3 +1,4 @@
+//app.components.pagination.tsx
 import { Link } from '@remix-run/react'
 
 export function PaginationComponent({

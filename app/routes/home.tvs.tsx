@@ -1,4 +1,4 @@
-// app/routes/tv.tsx
+// app/routes/home.tvs.tsx
 import {
   ActionFunctionArgs,
   redirect,
@@ -21,7 +21,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return {
     shows: data?.results,
     page,
-    totalPages: data?.total_results ?? 10,
+    totalPages: data?.total_pages ?? 10,
     query,
   }
 }

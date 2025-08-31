@@ -1,11 +1,10 @@
-// app/routes/studio.$id.tsx
+// app/routes/home.studio.$id.tsx
 
 import { LoaderFunctionArgs } from '@remix-run/node'
-import { Link, useLoaderData, useSearchParams } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import { MovieCard } from '~/components/common/movies.card'
 import { PaginationComponent } from '~/components/common/pagination'
 import { SectionWrapper } from '~/components/common/section.wrapper'
-import { Pagination } from '~/components/ui/pagination'
 import { getCompanyDetails, getCompanyDiscoveredMovies } from '~/utils/apis/api'
 
 export async function loader({ params, request }: LoaderFunctionArgs) {

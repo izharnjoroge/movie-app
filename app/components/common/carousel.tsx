@@ -1,3 +1,5 @@
+//app.components.common.carousel.tsx
+
 import { useState, ReactNode } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '../ui/button'

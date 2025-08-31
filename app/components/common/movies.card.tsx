@@ -1,3 +1,4 @@
+//app.components.common.movie.card.tsx
 import { Link } from '@remix-run/react'
 import { MovieResult } from '~/types'
 
@@ -38,7 +39,7 @@ export function MovieCard({
               {movie.release_date?.slice(0, 4) || '—'}
             </p>
             <p className='mt-1 text-xs text-yellow-400'>
-              ⭐ {movie.vote_average.toFixed(1)}
+              ⭐ {(movie.vote_average ?? 0).toFixed(1)}{' '}
             </p>
           </div>
         </Link>

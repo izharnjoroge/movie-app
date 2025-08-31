@@ -1,5 +1,4 @@
 // app/routes/auth.login.tsx
-import { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import {
   ConfirmationButtons,
@@ -14,7 +13,7 @@ import {
 } from '~/components/ui/card'
 import { createRequestToken } from '~/utils/apis/api'
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader() {
   const result: any = await createRequestToken()
   const request_token = result.request_token
   if (!request_token)

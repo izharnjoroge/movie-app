@@ -27,32 +27,3 @@ export default function MainWrapper() {
     </div>
   )
 }
-
-// Remix-style error boundary
-export function ErrorBoundary({ error }: { error: unknown }) {
-  // Normalize error (Remix sometimes passes `unknown`)
-  let message = 'An unexpected error occurred'
-  if (error instanceof Error) {
-    message = error.message
-  } else if (typeof error === 'string') {
-    message = error
-  } else if (error && typeof error === 'object' && 'statusText' in error) {
-    message = (error as any).statusText || message
-  }
-
-  useEffect(() => {
-    toast.error(message, {
-      action: {
-        label: 'Reload',
-        onClick: () => location.reload(),
-      },
-    })
-  }, [message])
-
-  return (
-    <div className='flex min-h-screen flex-col items-center justify-center p-6 text-center text-white'>
-      <h1 className='mb-4 text-2xl font-bold'>Something went wrong</h1>
-      <p className='mb-6 text-gray-400'>{message}</p>
-    </div>
-  )
-}

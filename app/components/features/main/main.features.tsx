@@ -1,3 +1,4 @@
+//main.features.tsx
 import { Link } from '@remix-run/react'
 import { ManualCarousel } from '~/components/common/carousel'
 import Slider from '~/components/common/slider'
@@ -152,12 +153,15 @@ export function StudioSliderComponent({ companies }: { companies: Company[] }) {
             className='w-full'
             duration={500}
             gap={100}
-            children={companies.map(company => (
-              <CompanyRow key={company.id} company={company} />
-            ))}
             reverse={false}
             durationOnHover={300}
-          />
+          >
+            <>
+              {companies.map(company => (
+                <CompanyRow key={company.id} company={company} />
+              ))}
+            </>
+          </Slider>
         </div>
         <div className='flex flex-col gap-4 md:hidden'>
           {companies.map(company => (

@@ -1,5 +1,6 @@
+//app.components.common.movie.hero.tsx
 import { Form, useNavigation } from '@remix-run/react'
-import { IndividualMovieDetails, Result } from '~/types'
+import { IndividualMovieDetails, TrailerResult } from '~/types'
 import { Button } from '../ui/button'
 
 export function MovieHero({
@@ -8,13 +9,13 @@ export function MovieHero({
   type = 'movie',
 }: {
   details: IndividualMovieDetails | null
-  trailer: Result | undefined
+  trailer: TrailerResult | undefined
   type?: 'movie' | 'tv'
 }) {
-  if (!details) return null
-
   const navigation = useNavigation()
   const isSubmitting = navigation.state === 'submitting'
+
+  if (!details) return null
 
   return (
     <div

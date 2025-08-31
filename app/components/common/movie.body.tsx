@@ -1,7 +1,8 @@
+//app.components.common.movie.body.tsx
 import { Link } from '@remix-run/react'
 import { Cast, SimilarResult } from '~/types'
 
-export default function CastComponent({ cast }: { cast: Cast[] | undefined }) {
+export function CastComponent({ cast }: { cast: Cast[] | undefined }) {
   return (
     <>
       {cast && cast.length > 0 && (

@@ -1,9 +1,7 @@
-// app/routes/main.tsx
+// app/routes/home._index.tsx
 import { LoaderFunctionArgs, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import Slider from '~/components/common/slider'
 import {
-  CompanyRow,
   MainHero,
   MovieRow,
   StudioSliderComponent,
