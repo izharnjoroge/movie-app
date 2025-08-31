@@ -25,6 +25,7 @@ export interface MovieResult {
   video: boolean
   vote_average: number
   vote_count: number
+  name?: string
 }
 
 export interface Company {
@@ -127,10 +128,10 @@ export interface Crew {
 
 export interface MovieTrailers {
   id: number
-  results: Result[]
+  results: TrailerResult[]
 }
 
-export interface Result {
+export interface TrailerResult {
   iso_639_1: string
   iso_3166_1: string
   name: string
@@ -190,4 +191,33 @@ export interface SimilarResult {
   video: boolean
   vote_average: number
   vote_count: number
+}
+
+export interface AccountDetails {
+  avatar: Avatar
+  id: number
+  iso_639_1: string
+  iso_3166_1: string
+  name: string
+  include_adult: boolean
+  username: string
+}
+
+export interface Avatar {
+  gravatar: Gravatar
+  tmdb: Tmdb
+}
+
+export interface Gravatar {
+  hash: string
+}
+
+export interface Tmdb {
+  avatar_path: any
+}
+
+export interface ActionResponse {
+  success: boolean
+  status_code: number
+  status_message: string
 }

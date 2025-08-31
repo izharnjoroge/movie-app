@@ -8,6 +8,7 @@ export const sessionStorage = createCookieSessionStorage({
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
     secrets: [process.env.SESSION_SECRET!],
+    maxAge: 60 * 60 * 24 * 7,
   },
 })
 

@@ -1,3 +1,5 @@
+//app.components.common.carousel.tsx
+
 import { useState, ReactNode } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '../ui/button'
@@ -25,7 +27,7 @@ export function ManualCarousel<T>({
     setIndex(prev => (prev - 1 + visibleItems.length) % visibleItems.length)
 
   return (
-    <div className='relative h-[60vh] w-full overflow-hidden'>
+    <div className='relative h-[80vh] w-full overflow-hidden md:h-[70vh]'>
       {/* Render the active item */}
       {renderItem(active, index)}
 

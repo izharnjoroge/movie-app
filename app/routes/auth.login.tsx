@@ -1,5 +1,4 @@
 // app/routes/auth.login.tsx
-import { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import {
   ConfirmationButtons,
@@ -14,9 +13,10 @@ import {
 } from '~/components/ui/card'
 import { createRequestToken } from '~/utils/apis/api'
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const { success, request_token } = await createRequestToken()
-  if (!success)
+export async function loader() {
+  const result: any = await createRequestToken()
+  const request_token = result.request_token
+  if (!request_token)
     throw new Response('Failed to get request token', { status: 400 })
 
   return { request_token, appUrl: process.env.APP_URL }
@@ -41,7 +41,7 @@ export default function AuthLogin() {
       if (event.origin !== appUrl) return
       if (event.data === 'tmdb-auth-success') {
         popup?.close()
-        window.location.href = '/main'
+        window.location.href = '/home'
       }
       if (event.data === 'tmdb-auth-fail') {
         popup?.close()
@@ -58,7 +58,7 @@ export default function AuthLogin() {
 
   return (
     <div className='flex h-screen items-center justify-center bg-inherit'>
-      <Card className='w-[600px] rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
+      <Card className='md:[50%] w-[90%] rounded-2xl border-0 bg-white/10 p-8 text-inherit shadow-2xl backdrop-blur-lg'>
         <CardHeader>
           <CardTitle>Authorize App</CardTitle>
         </CardHeader>
@@ -69,7 +69,7 @@ export default function AuthLogin() {
             Do you approve?
           </p>
         </CardContent>
-        <CardFooter className='flex justify-between gap-4'>
+        <CardFooter className='flex flex-col justify-between gap-4 md:flex-row'>
           <DestructiveButtons
             onClick={handleDecline}
             type='button'

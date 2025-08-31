@@ -15,7 +15,16 @@ export default defineConfig({
       reportsDirectory: './coverage',
       all: true,
       include: ['app/**/*.tsx', 'app/**/*.ts'],
-      exclude: ['node_modules/'],
+      exclude: [
+        'node_modules/',
+        'app/components/ui/*',
+        'app/lib/*',
+        'app/types/*',
+        'app/utils/constants',
+        'app/utils/constants',
+        'app/entry.client.tsx',
+        'app/entry.server.tsx',
+      ],
     },
   },
   resolve: {

@@ -9,6 +9,7 @@ import {
   OutlinedButtons,
 } from '~/components/common/buttons'
 import { createGuestSession } from '~/utils/apis/api'
+import { isAuthenticated } from '~/utils/auth/auth.checker'
 import { getSession, commitSession } from '~/utils/sessions/session.server'
 
 export const meta: MetaFunction = () => {
@@ -19,9 +20,10 @@ export const meta: MetaFunction = () => {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await getSession(request.headers.get('Cookie'))
-  if (session.get('session_id') || session.get('guest_session_id')) {
-    return redirect('/main')
+  const { sessionId, guestId } = await isAuthenticated(request)
+
+  if (sessionId || guestId) {
+    return redirect('/home')
   }
   return {}
 }
@@ -34,7 +36,7 @@ export async function action({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get('Cookie'))
   session.set('guest_session_id', guest_session_id)
 
-  return redirect('/main', {
+  return redirect('/home', {
     headers: { 'Set-Cookie': await commitSession(session) },
   })
 }
@@ -44,7 +46,7 @@ export default function LandingPage() {
     <div className='flex h-screen items-center justify-center bg-inherit p-6'>
       <div className='w-full max-w-md rounded-2xl bg-white/10 p-8 shadow-2xl backdrop-blur-lg'>
         <h1 className='mb-6 text-center text-3xl font-bold text-white'>
-          🎬 Welcome to My TMDB App
+          🎬 Welcome to The TMDB App
         </h1>
         <p className='mb-8 text-center text-blue-100'>
           Discover movies, track favorites, and explore as a guest or with your

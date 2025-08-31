@@ -1,0 +1,52 @@
+//app.components.search.tsx
+import { Form, useNavigate } from '@remix-run/react'
+import { Button } from '../ui/button'
+import { useRef } from 'react'
+import { SearchIcon, X } from 'lucide-react'
+
+export function SearchForm({
+  placeholder = 'Search movies...',
+  baseUrl = '/home/movies',
+}: {
+  placeholder?: string
+  baseUrl?: string
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
+
+  const handleClear = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '' // clear input value
+    }
+    navigate(baseUrl) // reset to base route
+  }
+
+  return (
+    <Form method='post' className='mb-6 flex gap-2'>
+      <input
+        ref={inputRef}
+        type='text'
+        name='query'
+        placeholder={placeholder}
+        className='w-[70%] rounded-lg border border-gray-600 bg-white/10 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none md:w-[80%]'
+      />
+
+      <Button
+        type='submit'
+        aria-label='search'
+        className='rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-700'
+      >
+        <SearchIcon />
+      </Button>
+
+      <Button
+        type='button'
+        onClick={handleClear}
+        aria-label='clear'
+        className='rounded-lg border-2 border-white/80 px-4 py-2 text-sm font-semibold text-cyan-600 transition'
+      >
+        <X />
+      </Button>
+    </Form>
+  )
+}

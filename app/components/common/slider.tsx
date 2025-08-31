@@ -1,3 +1,4 @@
+//app.components.slider.tsx
 import { animate, motion, useMotionValue } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import useMeasure from 'react-use-measure'
@@ -19,7 +20,6 @@ const Slider = ({
   direction = 'horizontal',
   durationOnHover,
   reverse = false,
-  className,
 }: infiniteSliderProps) => {
   const [currentDuration, setCurrentDuration] = useState(duration)
   const [ref, { width, height }] = useMeasure()
@@ -97,7 +97,6 @@ const Slider = ({
         ref={ref}
         {...hoverProps}
       >
-        {children}
         {children}
       </motion.div>
     </div>
