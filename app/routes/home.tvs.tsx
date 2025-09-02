@@ -4,7 +4,7 @@ import {
   redirect,
   type LoaderFunctionArgs,
 } from '@remix-run/node'
-import { useLoaderData, Link } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import { MovieCard } from '~/components/common/movies.card'
 import { PaginationComponent } from '~/components/common/pagination'
 import { SearchForm } from '~/components/common/search'

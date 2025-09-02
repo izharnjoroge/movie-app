@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import * as api from '~/utils/apis/api'
-import { vi } from 'vitest'
 
 /**
  * Mock global fetch with a successful JSON response

@@ -214,7 +214,7 @@ export async function getCompanyDiscoveredMovies(
   }
 }
 
-async function fetchTMDB<T>(path: String): Promise<T | null> {
+async function fetchTMDB<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(`${TMDB_BASE}${path}?language=en-US`, options)
     return await handleResponse(res)
@@ -318,8 +318,9 @@ export async function getWatchlistTv(
       options,
     )
     return await handleResponse(res)
-  } catch (error) {}
-  return null
+  } catch (error) {
+    return null
+  }
 }
 
 // Rated

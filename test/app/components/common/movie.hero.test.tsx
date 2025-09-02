@@ -2,7 +2,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { createRemixStub } from '@remix-run/testing'
-import * as remix from '@remix-run/react'
 import { MovieHero } from '~/components/common/movie.hero'
 import { IndividualMovieDetails, MovieTrailers } from '~/types'
 

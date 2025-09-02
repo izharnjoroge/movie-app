@@ -2,7 +2,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { createRemixStub } from '@remix-run/testing'
-import { MovieResult } from '~/types'
 import { MovieCard } from '~/components/common/movies.card'
 import { movieComponentResponse } from '../features/main/main.features.test'
 

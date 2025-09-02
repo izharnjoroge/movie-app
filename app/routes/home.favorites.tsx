@@ -1,7 +1,6 @@
 // app/routes/home.favorites.tsx
 import { type LoaderFunctionArgs, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { getSession } from '~/utils/sessions/session.server'
 import {
   getAccount,
   getAccountDetails,
