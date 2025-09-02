@@ -7,10 +7,12 @@ export function MovieHero({
   details,
   trailer,
   type = 'movie',
+  sessionId,
 }: {
   details: IndividualMovieDetails | null
   trailer: TrailerResult | undefined
   type?: 'movie' | 'tv'
+  sessionId: string | null
 }) {
   const navigation = useNavigation()
   const isSubmitting = navigation.state === 'submitting'
@@ -58,58 +60,60 @@ export function MovieHero({
             )}
 
             {/* --- User Actions --- */}
-            <div className='mt-6 flex flex-wrap justify-center gap-3 md:mt-12'>
-              {/* Favorite */}
-              <Form method='post'>
-                <input type='hidden' name='intent' value='favorite' />
-                <input type='hidden' name='mediaId' value={details.id} />
-                <input type='hidden' name='mediaType' value={type} />
-                <Button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='rounded-lg bg-pink-600 px-4 py-2 text-sm font-semibold shadow hover:bg-pink-700'
-                >
-                  ❤️ Fav
-                </Button>
-              </Form>
+            {sessionId && (
+              <div className='mt-6 flex flex-wrap justify-center gap-3 md:mt-12'>
+                {/* Favorite */}
+                <Form method='post'>
+                  <input type='hidden' name='intent' value='favorite' />
+                  <input type='hidden' name='mediaId' value={details.id} />
+                  <input type='hidden' name='mediaType' value={type} />
+                  <Button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='rounded-lg bg-pink-600 px-4 py-2 text-sm font-semibold shadow hover:bg-pink-700'
+                  >
+                    ❤️ Fav
+                  </Button>
+                </Form>
 
-              {/* Watchlist */}
-              <Form method='post'>
-                <input type='hidden' name='intent' value='watchlist' />
-                <input type='hidden' name='mediaId' value={details.id} />
-                <input type='hidden' name='mediaType' value={type} />
-                <Button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700'
-                >
-                  📺 Watch
-                </Button>
-              </Form>
+                {/* Watchlist */}
+                <Form method='post'>
+                  <input type='hidden' name='intent' value='watchlist' />
+                  <input type='hidden' name='mediaId' value={details.id} />
+                  <input type='hidden' name='mediaType' value={type} />
+                  <Button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold shadow hover:bg-blue-700'
+                  >
+                    📺 Watch
+                  </Button>
+                </Form>
 
-              {/* Rate */}
-              <Form method='post' className='flex items-center gap-2'>
-                <input type='hidden' name='intent' value='rate' />
-                <input type='hidden' name='mediaId' value={details.id} />
-                <input type='hidden' name='mediaType' value={type} />
-                <input
-                  type='number'
-                  name='rating'
-                  min='0.5'
-                  max='10'
-                  step='0.5'
-                  className='w-20 rounded px-2 py-1 text-black'
-                  placeholder='0-10'
-                />
-                <Button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className='rounded-lg bg-yellow-500 px-3 py-2 text-sm font-semibold shadow hover:bg-yellow-600'
-                >
-                  ⭐ Rate
-                </Button>
-              </Form>
-            </div>
+                {/* Rate */}
+                <Form method='post' className='flex items-center gap-2'>
+                  <input type='hidden' name='intent' value='rate' />
+                  <input type='hidden' name='mediaId' value={details.id} />
+                  <input type='hidden' name='mediaType' value={type} />
+                  <input
+                    type='number'
+                    name='rating'
+                    min='0.5'
+                    max='10'
+                    step='0.5'
+                    className='w-20 rounded px-2 py-1 text-black'
+                    placeholder='0-10'
+                  />
+                  <Button
+                    type='submit'
+                    disabled={isSubmitting}
+                    className='rounded-lg bg-yellow-500 px-3 py-2 text-sm font-semibold shadow hover:bg-yellow-600'
+                  >
+                    ⭐ Rate
+                  </Button>
+                </Form>
+              </div>
+            )}
           </div>
         </div>
       </div>

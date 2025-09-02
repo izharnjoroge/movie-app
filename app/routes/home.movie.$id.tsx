@@ -23,9 +23,10 @@ import {
 } from '~/utils/apis/api'
 import { isAuthenticated } from '~/utils/auth/auth.checker'
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const movieId = params.id
   if (!movieId) throw new Response('Movie not found', { status: 404 })
+  const { sessionId } = await isAuthenticated(request)
 
   const [details, credits, videos, similar] = await Promise.all([
     getMovieDetails(movieId),
@@ -41,6 +42,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       (v: any) => v.type === 'Trailer' && v.site === 'YouTube',
     ),
     similar: similar?.results,
+    sessionId: sessionId,
   }
 }
 export async function action({ request }: ActionFunctionArgs) {
@@ -101,7 +103,8 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function MoviePage() {
-  const { details, cast, trailer, similar } = useLoaderData<typeof loader>()
+  const { details, cast, trailer, similar, sessionId } =
+    useLoaderData<typeof loader>()
   const { success, message } = useActionData<typeof action>() || {}
 
   useEffect(() => {
@@ -117,7 +120,7 @@ export default function MoviePage() {
   return (
     <div className='min-h-screen'>
       {/* Header Section */}
-      <MovieHero details={details} trailer={trailer} />
+      <MovieHero details={details} trailer={trailer} sessionId={sessionId} />
 
       <div className='mx-auto max-w-[1200px] space-y-6'>
         {/* Cast */}

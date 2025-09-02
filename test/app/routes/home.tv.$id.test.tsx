@@ -15,6 +15,7 @@ import {
   MovieTrailers,
 } from '~/types'
 import { movieResponse } from './home._index.test'
+import * as authChecker from '~/utils/auth/auth.checker'
 
 export const details: IndividualMovieDetails = {
   adult: false,
@@ -174,6 +175,10 @@ describe('tv.$id route', () => {
     vi.spyOn(api, 'getTvVideos').mockResolvedValue(trailer)
     vi.spyOn(api, 'getSimilarTvs').mockResolvedValue(movieResponse)
     vi.spyOn(api, 'getAccountDetails').mockResolvedValue(account)
+    vi.spyOn(authChecker, 'isAuthenticated').mockResolvedValue({
+      sessionId: 'sss',
+      guestId: null,
+    })
     vi.spyOn(api, 'markAsFavorite').mockResolvedValue({
       success: true,
       status_code: 200,

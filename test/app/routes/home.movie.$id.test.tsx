@@ -10,6 +10,7 @@ import { account, credits, details, trailer } from './home.tv.$id.test'
 import { movieResponse } from './home._index.test'
 import { createRemixStub } from '@remix-run/testing'
 import { render, screen } from '@testing-library/react'
+import * as authChecker from '~/utils/auth/auth.checker'
 
 // --- stub child components ---
 vi.mock('~/components/common/movie.hero', () => ({
@@ -32,6 +33,10 @@ describe('home.movie.$id route', () => {
     vi.spyOn(api, 'getMovieVideos').mockResolvedValue(trailer)
     vi.spyOn(api, 'getSimilarMovies').mockResolvedValue(movieResponse)
     vi.spyOn(api, 'getAccountDetails').mockResolvedValue(account)
+    vi.spyOn(authChecker, 'isAuthenticated').mockResolvedValue({
+      sessionId: 'sss',
+      guestId: null,
+    })
     vi.spyOn(api, 'markAsFavorite').mockResolvedValue({
       success: true,
       status_code: 200,
