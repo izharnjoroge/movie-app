@@ -17,13 +17,12 @@ export default defineConfig({
       include: ['app/**/*.tsx', 'app/**/*.ts'],
       exclude: [
         'node_modules/',
-        'app/components/ui/*',
+        'app/components/ui/*', //shadcn ui components
         'app/lib/*',
         'app/types/*',
         'app/utils/constants',
-        'app/utils/constants',
-        'app/entry.client.tsx',
-        'app/entry.server.tsx',
+        'app/entry.client.tsx', //remix files
+        'app/entry.server.tsx', //remix files
       ],
     },
   },
