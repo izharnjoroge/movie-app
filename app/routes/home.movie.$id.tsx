@@ -44,7 +44,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 }
 export async function action({ request }: ActionFunctionArgs) {
-  const { sessionId, guestId } = await isAuthenticated(request)
+  const { sessionId } = await isAuthenticated(request)
   if (!sessionId) return redirect('/')
 
   const formData = await request.formData()
@@ -85,7 +85,7 @@ export async function action({ request }: ActionFunctionArgs) {
         return { success: true, message: res.status_message }
         break
 
-      case 'rate':
+      case 'rate': {
         const rating = Number(formData.get('rating'))
         res = await rateMedia(mediaId, sessionId, mediaType, rating)
         if (!res?.success) {
@@ -93,6 +93,7 @@ export async function action({ request }: ActionFunctionArgs) {
         }
         return { success: true, message: res.status_message }
         break
+      }
     }
   }
 

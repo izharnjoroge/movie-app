@@ -1,6 +1,6 @@
 // app/routes/studios.tsx
 import { LoaderFunctionArgs, redirect } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import { SectionWrapper } from '~/components/common/section.wrapper'
 import { CompanyRow } from '~/components/features/main/main.features'
 import { Company } from '~/types'

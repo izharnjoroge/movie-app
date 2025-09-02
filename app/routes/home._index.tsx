@@ -1,5 +1,4 @@
 // app/routes/home._index.tsx
-import { LoaderFunctionArgs, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import {
   MainHero,
@@ -17,7 +16,7 @@ import {
 } from '~/utils/apis/api'
 import { STUDIOS } from '~/utils/constants/studios'
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader() {
   const [trending, nowPlaying, popular, topRated, topRatedTv] =
     await Promise.all([
       getTrending('movie', 'week'),
