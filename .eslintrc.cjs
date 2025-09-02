@@ -23,13 +23,13 @@ module.exports = {
 
   ignorePatterns: [
     '!app',
-    'app/components/ui/**',
-    'app/entry.server.tsx',
-    'app/entry.client.tsx',
+    'app/components/ui/**', //shadcn ui components
+    'app/entry.server.tsx', //remix files
+    'app/entry.client.tsx', //remix files
     'node_modules',
     'build',
     'public',
-    'coverage',
+    'coverage', // test coverage files
   ],
 
   extends: ['eslint:recommended'],
