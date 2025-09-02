@@ -1,3 +1,4 @@
+//guest.tsx
 import { redirect } from '@remix-run/node'
 import { commitSession, getSession } from '~/utils/sessions/session.server'
 

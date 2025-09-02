@@ -1,4 +1,3 @@
-import { redirect, TypedResponse } from '@remix-run/node'
 import { getSession } from '../sessions/session.server'
 
 export async function isAuthenticated(request: Request): Promise<{

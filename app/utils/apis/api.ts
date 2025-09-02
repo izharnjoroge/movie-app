@@ -1,4 +1,4 @@
-import { Action, toast } from 'sonner'
+//app.utils.apis.api.ts
 import {
   AccountDetails,
   ActionResponse,
@@ -11,7 +11,6 @@ import {
   SimilarMovies,
 } from '~/types'
 
-// app/api-client.ts
 const TMDB_BASE = 'https://api.themoviedb.org/3'
 const API_KEY = process.env.API_KEY!
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN!
@@ -375,7 +374,7 @@ export async function markAsFavorite(
       },
     )
 
-    return handleResponse(res)
+    return await handleResponse(res)
   } catch (error) {
     console.error('Failed to mark as favorite:', error)
     return null
@@ -402,7 +401,7 @@ export async function addToWatchlist(
         }),
       },
     )
-    return handleResponse(res)
+    return await handleResponse(res)
   } catch (error) {
     console.error('Failed to add to watchlist:', error)
     return null
@@ -424,7 +423,7 @@ export async function rateMedia(
         body: JSON.stringify({ value: rating }),
       },
     )
-    return handleResponse(res)
+    return await handleResponse(res)
   } catch (error) {
     console.error('Failed to rate media:', error)
     return null
@@ -440,9 +439,10 @@ export async function searchMovies(
       `${TMDB_BASE}/search/movie?query=${encodeURIComponent(query)}&page=${page}`,
       options,
     )
-    return handleResponse(res)
-  } catch (error) {}
-  return null
+    return await handleResponse(res)
+  } catch (error) {
+    return null
+  }
 }
 
 export async function searchTvs(
@@ -454,7 +454,8 @@ export async function searchTvs(
       `${TMDB_BASE}/search/tv?query=${encodeURIComponent(query)}&page=${page}`,
       options,
     )
-    return handleResponse(res)
-  } catch (error) {}
-  return null
+    return await handleResponse(res)
+  } catch (error) {
+    return null
+  }
 }

@@ -1,14 +1,16 @@
 // test/app/root.test.tsx
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import App, { ErrorBoundary, links } from '~/root'
+import App, { ErrorBoundary, Layout, links } from '~/root'
 import { toast } from 'sonner'
+import { createRemixStub } from '@remix-run/testing'
 
 // 🔧 Mock sonner’s toast
 vi.mock('sonner', () => ({
   toast: {
     error: vi.fn(),
   },
+  Toaster: () => <div data-testid='toaster' />,
 }))
 
 describe('root.tsx', () => {
@@ -61,6 +63,30 @@ describe('root.tsx', () => {
       render(<ErrorBoundary error={1234} />)
       expect(
         screen.getByText('An unexpected error occurred'),
+      ).toBeInTheDocument()
+    })
+  })
+
+  describe('Layout', () => {
+    it('wraps children inside full document', async () => {
+      const RemixStub = createRemixStub([
+        {
+          path: '/',
+          Component: () => (
+            <Layout>
+              <h1>Child Content</h1>
+            </Layout>
+          ),
+        },
+      ])
+
+      render(<RemixStub />)
+
+      // assert DOM structure
+      expect(document.querySelector('html')).toBeTruthy()
+      expect(document.querySelector('head meta[charset="utf-8"]')).toBeTruthy()
+      expect(
+        screen.getByRole('heading', { name: /child content/i }),
       ).toBeInTheDocument()
     })
   })
