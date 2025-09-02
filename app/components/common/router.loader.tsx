@@ -10,7 +10,7 @@ export const RouteLoader = () => {
   return (
     <>
       {isSubmitting && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-0'>
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-cyan-900 to-black/70 backdrop-blur-0'>
           <Loader2 className='h-12 w-12 animate-spin' />
         </div>
       )}

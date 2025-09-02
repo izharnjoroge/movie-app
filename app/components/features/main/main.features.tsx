@@ -97,7 +97,7 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
       items={hero}
       maxItems={6}
       renderItem={active => (
-        <div className='relative h-[80vh] w-full overflow-hidden'>
+        <div className='relative h-full w-full overflow-hidden'>
           {/* Blurred background */}
           <div className='absolute inset-0'>
             {active.backdrop_path ? (
@@ -118,11 +118,11 @@ export function MainHero({ hero }: { hero: MovieResult[] }) {
                 No Backdrop
               </div>
             )}
-            <div className='absolute inset-0 bg-black/60' />
+            <div className='absolute inset-0 bg-black/40' />
           </div>
 
           {/* Content */}
-          <div className='absolute bottom-8 left-4 right-4 sm:bottom-[100px] sm:left-[100px] sm:max-w-xl'>
+          <div className='absolute bottom-8 left-4 right-4 sm:bottom-[40px] sm:left-[40px] sm:max-w-xl'>
             <h1 className='mb-4 text-2xl font-bold text-white drop-shadow-lg sm:text-4xl'>
               {active.title}
             </h1>

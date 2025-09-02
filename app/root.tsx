@@ -35,8 +35,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className='bg-white font-sans font-semibold text-gray-200 antialiased'>
-        <main className='mx-auto min-h-screen max-w-[1980px] bg-gradient-to-br from-cyan-900 to-black font-sans'>
+      <body className='bg-gradient-to-br from-cyan-900 to-black font-sans font-semibold text-gray-200 antialiased'>
+        <main className='mx-auto min-h-screen max-w-[1980px] font-sans'>
           {children}
           <RouteLoader />
         </main>

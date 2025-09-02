@@ -10,7 +10,7 @@ export function Navbar({ sessionId }: { sessionId: string | null }) {
   const navItems = sessionId ? [...baseLinks, ...userLinks] : baseLinks
 
   return (
-    <nav className='fixed left-0 top-0 z-10 w-full rounded-b-lg bg-white/10 shadow backdrop-blur-md'>
+    <nav className='fixed left-0 top-0 z-10 w-full max-w-[1980px] rounded-b-lg bg-white/10 shadow backdrop-blur-md'>
       <div className='flex items-center justify-between px-6 py-3'>
         {/* Logo */}
         <Link to='/home' className='text-xl font-bold'>
