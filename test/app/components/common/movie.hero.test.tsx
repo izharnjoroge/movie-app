@@ -123,14 +123,22 @@ function withStub(ui: React.ReactNode) {
 describe('MovieHero', () => {
   it('renders nothing if details is null', () => {
     const { container } = render(
-      withStub(<MovieHero details={null} trailer={undefined} />),
+      withStub(
+        <MovieHero details={null} trailer={undefined} sessionId={null} />,
+      ),
     )
     expect(container.firstChild).toBeNull()
   })
 
   it('renders movie details correctly', () => {
     render(
-      withStub(<MovieHero details={detailsComponent} trailer={undefined} />),
+      withStub(
+        <MovieHero
+          details={detailsComponent}
+          trailer={undefined}
+          sessionId={'sss'}
+        />,
+      ),
     )
 
     expect(screen.getByText('F1')).toBeInTheDocument()
@@ -148,6 +156,7 @@ describe('MovieHero', () => {
         <MovieHero
           details={detailsComponent}
           trailer={trailerComponent.results[0]}
+          sessionId={'sss'}
         />,
       ),
     )
@@ -161,7 +170,13 @@ describe('MovieHero', () => {
 
   it('renders forms with correct hidden inputs', () => {
     render(
-      withStub(<MovieHero details={detailsComponent} trailer={undefined} />),
+      withStub(
+        <MovieHero
+          details={detailsComponent}
+          trailer={undefined}
+          sessionId={'www'}
+        />,
+      ),
     )
 
     // Favorites button
