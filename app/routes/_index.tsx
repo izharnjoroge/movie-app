@@ -14,7 +14,7 @@ import { getSession, commitSession } from '~/utils/sessions/session.server'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'New Remix App' },
+    { title: 'TMDB Movie App' },
     { name: 'description', content: 'Welcome to The Movie App!' },
   ]
 }
